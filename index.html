@@ -308,7 +308,7 @@ function save(){
   clearTimeout(window._saveTimer);
   window._saveTimer=setTimeout(function(){
     showSyncStatus('guardando');
-    fetch('https://script.google.com/macros/s/AKfycbxFEp2eU9SIS2kQ5L6_9sRnGm0u8HIlePjUyMrt1hXbwQ0akq35tgezJuJ464ICH8G-ow/exec'),{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({action:'save',data:payload})})
+    fetch('https://script.google.com/macros/s/AKfycbxFEp2eU9SIS2kQ5L6_9sRnGm0u8HIlePjUyMrt1hXbwQ0akq35tgezJuJ464ICH8G-ow/exec',{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({action:'save',data:payload})})
     .then(function(r){return r.json();})
     .then(function(r){if(r.ok)showSyncStatus('ok');else showSyncStatus('error');})
     .catch(function(){showSyncStatus('error');});
