@@ -151,7 +151,7 @@ tr:last-child td{border-bottom:none;}
       </div>
       <div class="br"><button class="bp" onclick="gAn()">✓ Guardar</button><button class="bs" id="cReg" onclick="clReg()" style="display:none">Cancelar</button><span class="ok" id="regOk">✓ Guardado</span></div>
     </div>
-    <div class="import-box"><div class="ct">Importar stock desde Excel</div><p>Carga el stock de La Dolores, Rincón Chico, La Querencia y Kakel desde Stock_Ganadero.xlsx</p><div class="br"><button class="bs" style="border-color:#555;color:#fff" onclick="impPDF()">📥 Importar stock</button><span id="impOk" class="ok"></span></div></div>
+
   </div>
 </div>
 
@@ -275,20 +275,7 @@ var DC={'Ana Toth':'#1D9E75','Miguel Echevarría':'#7F77DD','Juan Cruz Echevarr�
 var CAMPOS=['La Dolores','Rincón Chico','La Querencia','La Oración','La Rosa','Kakel'];
 var CATS_G=['Materiales','Gas Oil','Sanidad','Viaticos','Otro'];
 var CAT_C=['#2A6FBF','#B87825','#1D9E75','#7F77DD','#888780'];
-var PDF=[
-  {c:'La Dolores',p:'2',cat:'Vacas',q:220},{c:'La Dolores',p:'2',cat:'Terneros/as',q:49},
-  {c:'La Dolores',p:'Olla',cat:'Vacas',q:160},{c:'La Dolores',p:'Olla',cat:'Terneros/as',q:4},
-  {c:'La Dolores',p:'1',cat:'Vacas',q:406},{c:'La Dolores',p:'1',cat:'Terneros/as',q:94},
-  {c:'La Dolores',p:'4',cat:'Destete',q:293},{c:'La Dolores',p:'5',cat:'Toros',q:34},
-  {c:'La Dolores',p:'33',cat:'Tropa Novillos',q:61},
-  {c:'Rincón Chico',p:'',cat:'Novillos',q:27},{c:'Rincón Chico',p:'',cat:'Terneros/as',q:235},
-  {c:'Rincón Chico',p:'',cat:'Vaquillonas',q:52},{c:'Rincón Chico',p:'',cat:'Terneros/as',q:53},
-  {c:'La Querencia',p:'',cat:'Vacas',q:260},{c:'La Querencia',p:'',cat:'Terneros/as',q:139},
-  {c:'La Querencia',p:'',cat:'Vacas',q:64},{c:'La Querencia',p:'',cat:'Terneros/as',q:17},
-  {c:'La Querencia',p:'',cat:'Recria Hembras',q:181},{c:'La Querencia',p:'',cat:'Toros',q:17},
-  {c:'Kakel',p:'',cat:'Vacas',q:246},{c:'Kakel',p:'',cat:'Toros',q:10},
-  {c:'Kakel',p:'',cat:'Terneros/as',q:24},{c:'Kakel',p:'',cat:'Terneros/as',q:84}
-];
+
 var EV_TABLA=[
   {cat:'Vacas',f:1.00,d:'Referencia base'},{cat:'Vacas c/ cría',f:1.20,d:'Vaca + ternero al pie'},
   {cat:'Toros',f:1.35,d:'Mayor tamaño y consumo'},{cat:'Toritos',f:0.80,d:'Toro joven'},
@@ -374,7 +361,6 @@ function bOCat(c){var m={'Sanidad':'cs','Mantenimiento':'cm','Movimiento de haci
 function eCol(e){if(e==='En tratamiento')return'#B7770D';if(e==='Cuarentena')return'#C0392B';if(e==='En observación')return'#1A5276';return'#1D6A48';}
 function pBadge(p){return'<span class="pb p'+(p||'M')[0]+'-b">'+(p||'Media')+'</span>';}
 
-function impPDF(){A=A.filter(function(a){return a.src!=='pdf';});var n=PDF.map(function(d){return{id:Date.now()+Math.random(),num:'GRUPO',cant:d.q,campo:d.c,pot:d.p,cat:d.cat,est:'Sano',obs:'',src:'pdf',reg:td()};});A=n.concat(A);save();rAll();var el=document.getElementById('impOk');el.textContent='✓ '+n.length+' grupos · '+n.reduce(function(s,a){return s+a.cant;},0).toLocaleString('es-AR')+' animales';el.style.display='inline';setTimeout(function(){el.style.display='none';},4000);}
 
 function tmd(){var t=document.getElementById('m_tipo').value;document.getElementById('gd').style.display=t==='Movimiento'?'flex':'none';document.getElementById('gp').style.display=(t==='Venta'||t==='Compra')?'flex':'none';}
 function adj(c,cat,d){var g=A.find(function(a){return a.campo===c&&a.cat===cat;});if(g)g.cant=Math.max(0,(g.cant||1)+d);else if(d>0)A.unshift({id:Date.now()+Math.random(),num:'GRUPO',cant:d,campo:c,pot:'',cat:cat,est:'Sano',obs:'',src:'mov',reg:td()});}
@@ -475,7 +461,7 @@ function rOTAll(){rOTTab();rOpList();updOps();rOTH();}
 function rCAll(){rCarga();rCCfg();rEVT();}
 function rAll(){rHacienda();rFinanzas();rOTAll();rCAll();}
 
-load();
+initData();
 </script>
 </body>
 </html>
