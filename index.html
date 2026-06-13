@@ -349,7 +349,7 @@ function save(){
   clearTimeout(window._saveTimer);
   window._saveTimer=setTimeout(function(){
     showSyncStatus('guardando');
-    fetch('https://script.google.com/macros/s/AKfycbwLDqPgv4T3X5mSXIfNJTzy2LdEUebXbk0MECLy-aG23xAyi5GcDDyLZVZpCgiVnpGfdQ/exec',{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({action:'save',data:payload})})
+    fetch('https://script.google.com/macros/s/AKfycbxtMLP5B6W45LCnBYjNw7NsxKczMLcGpVAbqWaYajc1mmgv5G7v45aEvF5-Aq2BndS7Mw/exec',{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({action:'save',data:payload})})
     .then(function(r){return r.json();})
     .then(function(r){if(r.ok)showSyncStatus('ok');else showSyncStatus('error');})
     .catch(function(){showSyncStatus('error');});
