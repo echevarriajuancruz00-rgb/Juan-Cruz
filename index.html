@@ -411,7 +411,7 @@ function load(){
   // Show loading indicator
   showSyncStatus('cargando');
   // Load from Google Sheets
-  fetch('https://script.google.com/macros/s/AKfycbwLDqPgv4T3X5mSXIfNJTzy2LdEUebXbk0MECLy-aG23xAyi5GcDDyLZVZpCgiVnpGfdQ/exec?action=load')
+  fetch('https://script.google.com/macros/s/AKfycbxtMLP5B6W45LCnBYjNw7NsxKczMLcGpVAbqWaYajc1mmgv5G7v45aEvF5-Aq2BndS7Mw/exec?action=load')
   .then(function(r){return r.json();})
   .then(function(r){
     if(r.ok&&r.data){
