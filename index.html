@@ -412,8 +412,16 @@ function load(){
   showSyncStatus('cargando');
   // Load from Google Sheets
   fetch('https://script.google.com/macros/s/AKfycbxtMLP5B6W45LCnBYjNw7NsxKczMLcGpVAbqWaYajc1mmgv5G7v45aEvF5-Aq2BndS7Mw/exec?action=load')
-  .then(function(r){return r.json();})
-  .then(function(r){
+ .then(function(r){
+  console.log("STATUS:", r.status);
+  return r.text();
+})
+.then(function(txt){
+  console.log("RESPUESTA CRUDA:", txt);
+
+  var r = JSON.parse(txt);
+
+  if(r.ok&&r.data){
   console.log("RESPUESTA LOAD:", r);
 
   if(r.ok&&r.data){
