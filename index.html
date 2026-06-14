@@ -408,41 +408,44 @@ function filterByCampo(list, campoKey){
 // ─────────────────────────────────────────────────────────────
 
 function load(){
-  // Show loading indicator
   showSyncStatus('cargando');
-  // Load from Google Sheets
+
   fetch('https://script.google.com/macros/s/AKfycbxtMLP5B6W45LCnBYjNw7NsxKczMLcGpVAbqWaYajc1mmgv5G7v45aEvF5-Aq2BndS7Mw/exec?action=load')
- .then(function(r){
-  console.log("STATUS:", r.status);
-  return r.text();
-})
-.then(function(txt){
-  console.log("RESPUESTA CRUDA:", txt);
+  .then(function(r){
+    return r.json();
+  })
+  .then(function(r){
+    console.log("RESPUESTA LOAD:", r);
 
-  var r = JSON.parse(txt);
+    if(r.ok && r.data){
+      var p = r.data;
 
-  if(r.ok&&r.data){
-  console.log("RESPUESTA LOAD:", r);
+      A = p.a || [];
+      M = p.m || [];
+      G = p.g || [];
+      I = p.i || [];
+      OT = p.ot || [];
+      OP = p.op || [];
+      CC2 = p.cc || {};
 
-  if(r.ok&&r.data){
-      var p=r.data;
-      A=p.a||[];M=p.m||[];G=p.g||[];I=p.i||[];OT=p.ot||[];OP=p.op||[];CC2=p.cc||{};
-      // Update local cache
-      try{localStorage.setItem('campo_integral',JSON.stringify(p));}catch(e){}
+      try{
+        localStorage.setItem('campo_integral', JSON.stringify(p));
+      }catch(e){}
+
       showSyncStatus('ok');
     } else {
-      // Fallback to localStorage cache
       loadFromCache();
       showSyncStatus('cache');
     }
   })
-  .catch(function(){
-    // Offline: use localStorage cache
+  .catch(function(err){
+    console.error(err);
     loadFromCache();
     showSyncStatus('offline');
   })
   .finally(function(){
-    updOps();rAll();
+    updOps();
+    rAll();
   });
 }
 function loadFromCache(){
